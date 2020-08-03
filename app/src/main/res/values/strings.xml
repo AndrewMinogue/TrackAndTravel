@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">trackandtravel</string>
+    <string name="button_deleteHillfort">Delete</string>
+
+    <string name="menu_addHillfort">Save</string>
+    <string name="title_activity_map"> Map </string>
+
+    <string name="login_unsuccessful1">Please enter a email or password</string>
+    <string name="login_unsuccessful">login unsuccessful</string>
+    <string name="register_successful">Registration successful</string>
+    <string name="enter_register_detail"> Please fill out both fields</string>
+    <string name="title_activity_hillfort_maps">Map of all Routes</string>
+    <string name="title_activity_login"> Signup/Login</string>
+
+    <string name="menu_showMap">Show Routes</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_add">Add</string>
+
+
+    <string name="routeStart">Route Start</string>
+    <string name="routeStops">Route Stops</string>
+    <string name="routeEnd">Route End</string>
+</resources>

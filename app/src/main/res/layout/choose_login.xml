@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/Admin"
+        android:layout_width="154dp"
+        android:layout_height="136dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/roundbutton"
+        android:text="Admin"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/Driver"
+        android:layout_width="154dp"
+        android:layout_height="136dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/roundbutton1"
+        android:text="Bus Driver"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/Passenger"
+        android:layout_width="154dp"
+        android:layout_height="136dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/roundbutton2"
+        android:text="Passenger"
+        android:textColor="@color/colorPrimary"/>
+
+</LinearLayout>
