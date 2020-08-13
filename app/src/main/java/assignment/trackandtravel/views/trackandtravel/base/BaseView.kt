@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar
 import assignment.trackandtravel.views.trackandtravel.map.TrackMapView
 import assignment.trackandtravel.views.trackandtravel.trackandtravellist.MainDriverView
 import assignment.trackandtravel.views.trackandtravel.loginadmin.LoginViewPassenger
+import assignment.trackandtravel.views.trackandtravel.routemapping.RouteMapView
+import assignment.trackandtravel.views.trackandtravel.trackandtraveladmin.MainAdminView
 import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.AnkoLogger
 
@@ -19,7 +21,7 @@ val IMAGE_REQUEST2 = 4
 val IMAGE_REQUEST3 = 5
 
 enum class VIEW {
-    LOCATION, HILLFORT, MAPS, LIST, LOGIN
+    ROUTE, MAPS, LIST, LOGIN, ADMIN, DRIVER
 }
 
 open abstract class BaseView : AppCompatActivity(), AnkoLogger {
@@ -29,9 +31,12 @@ open abstract class BaseView : AppCompatActivity(), AnkoLogger {
     fun navigateTo(view: VIEW, code: Int = 0, key: String = "", value: Parcelable? = null) {
         var intent = Intent(this, MainDriverView::class.java)
         when (view) {
+            VIEW.ADMIN -> intent = Intent(this,MainAdminView::class.java )
+            VIEW.ROUTE -> intent = Intent(this,RouteMapView::class.java )
             VIEW.MAPS -> intent = Intent(this, TrackMapView::class.java)
             VIEW.LIST -> intent = Intent(this, MainDriverView::class.java)
             VIEW.LOGIN -> intent = Intent(this, LoginViewPassenger::class.java)
+            VIEW.DRIVER -> intent = Intent(this, MainDriverView::class.java)
 
         }
         if (key != "") {

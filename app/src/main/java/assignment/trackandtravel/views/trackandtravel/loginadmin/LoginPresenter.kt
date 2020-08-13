@@ -17,7 +17,7 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->
             if (task.isSuccessful) {
                 view?.hideProgress()
-                view?.navigateTo(VIEW.LIST)
+                view?.navigateTo(VIEW.ADMIN)
             }
         }
     }
@@ -28,7 +28,7 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
             .addOnCompleteListener(view!!) { task ->
                 if (task.isSuccessful) {
                     view?.hideProgress()
-                    view?.navigateTo(VIEW.LIST)
+                    view?.navigateTo(VIEW.ADMIN)
                 } else {
                     view?.hideProgress()
                     view?.toast("Sign Up Failed: ${task.exception?.message}")

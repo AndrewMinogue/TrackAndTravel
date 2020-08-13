@@ -21,4 +21,7 @@
     <string name="routeStart">Route Start</string>
     <string name="routeStops">Route Stops</string>
     <string name="routeEnd">Route End</string>
+
+
+    <string name="select_route_image">Select hillfort image</string>
 </resources>
