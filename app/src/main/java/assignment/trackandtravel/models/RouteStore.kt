@@ -7,4 +7,5 @@ interface RouteStore {
     fun delete(route: RouteModel)
     fun findById(id:Long) : RouteModel?
     fun clear()
+    fun sortedByFavourite(): List<RouteModel>?
 }

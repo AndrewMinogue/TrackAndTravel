@@ -24,4 +24,20 @@
 
 
     <string name="select_route_image">Select hillfort image</string>
+    <string name="route_favourites">Show Favourites</string>
+    <string name="menu_home">Home</string>
+    <string name="button_addImage">  Add Image </string>
+
+
+    <string name="hint_routeTitle">Route Title</string>
+    <string name="hint_firststop">First Bus Stop</string>
+    <string name="hint_laststop">Last Bus Stop</string>
+
+
+    <string name="button_location">Add Bus Stop</string>
+    <string name="route_favourite">Favourite</string>
+    <string name="menu_mapup"> UP </string>
+
+    <string name="change_route_image">Change route image</string>
+    <string name="enter_route_title">Please enter a bus number</string>
 </resources>

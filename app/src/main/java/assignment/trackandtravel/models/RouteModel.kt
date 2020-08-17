@@ -10,12 +10,14 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class RouteModel(@PrimaryKey(autoGenerate = true)
                       var id: Long= 0,
+                      var fbId : String = "",
 
                       var busnumber : String = "",
                       var busstopstart : String = "",
+                      var busstopend : String = "",
                       var image: String = "",
                       var favourite: Boolean = false,
-                      @Embedded var locationm : Location = Location()): Parcelable
+                      @Embedded var location : Location = Location()): Parcelable
 
 
 @Parcelize
