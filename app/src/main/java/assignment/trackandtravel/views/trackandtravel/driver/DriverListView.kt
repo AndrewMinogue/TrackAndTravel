@@ -1,4 +1,4 @@
-package assignment.trackandtravel.views.trackandtravel.trackandtravellist
+package assignment.trackandtravel.views.trackandtravel.driver
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,12 +12,14 @@ import assignment.trackandtravel.main.MainApp
 import assignment.trackandtravel.models.RouteModel
 import org.jetbrains.anko.startActivityForResult
 import assignment.trackandtravel.views.trackandtravel.base.BaseView
+import assignment.trackandtravel.views.trackandtravel.trackandtravellist.RouteAdapter
+import assignment.trackandtravel.views.trackandtravel.trackandtravellist.RouteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_route_list.*
 
-class MainListView: BaseView(), RouteListener{
+class DriverListView: BaseView(), RouteListener {
 
-    lateinit var presenter: MainListPresenter
+    lateinit var presenter: DriverListPresenter
     lateinit var app: MainApp
     var favouriteT = false
 
@@ -29,7 +31,7 @@ class MainListView: BaseView(), RouteListener{
         app = application as MainApp
 
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        presenter = initPresenter(MainListPresenter(this)) as MainListPresenter
+        presenter = initPresenter(DriverListPresenter(this)) as DriverListPresenter
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
@@ -43,7 +45,7 @@ class MainListView: BaseView(), RouteListener{
                     presenter.doSortFavourite()
                 }
                 R.id.item_home1 -> {
-                    startActivityForResult<MainListView>(0)
+                    startActivityForResult<DriverListView>(0)
                 }
                 R.id.item_settings1 -> {
 
@@ -89,7 +91,7 @@ class MainListView: BaseView(), RouteListener{
             R.id.item_settings -> startActivityForResult<SettingsActivity>(0)
 //            R.id.item_favourites1 -> presenter.doSortFavourite()
             R.id.item_settings1 -> startActivityForResult<SettingsActivity>(0)
-            R.id.item_home1 -> startActivityForResult<MainListView>(0)
+            R.id.item_home1 -> startActivityForResult<DriverListView>(0)
         }
         return super.onOptionsItemSelected(item)
     }

@@ -8,11 +8,12 @@ import androidx.appcompat.widget.Toolbar
 import assignment.trackandtravel.models.Location
 import assignment.trackandtravel.models.RouteModel
 import assignment.trackandtravel.views.trackandtravel.adminhomepage.AdminHomeView
+import assignment.trackandtravel.views.trackandtravel.driver.DriverListView
+import assignment.trackandtravel.views.trackandtravel.driver.route.DriverRouteView
 import assignment.trackandtravel.views.trackandtravel.editlocation.EditLocationView
 import assignment.trackandtravel.views.trackandtravel.trackandtravellist.MainDriverView
 import assignment.trackandtravel.views.trackandtravel.loginadmin.LoginViewPassenger
 import assignment.trackandtravel.views.trackandtravel.routemapping.RouteMapView
-import assignment.trackandtravel.views.trackandtravel.trackandtraveladmin.MainAdminView
 import assignment.trackandtravel.views.trackandtravel.trackandtravellist.MainListView
 import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.AnkoLogger
@@ -23,7 +24,7 @@ val LOCATION_REQUEST = 2
 
 
 enum class VIEW {
-    ROUTE, MAPS, LIST, LOGIN, ADMIN, DRIVER,LOCATION,LIST1,ADMIN1
+    ROUTE, MAPS, LIST, LOGIN, DRIVERLIST, DRIVER,LOCATION,LIST1,ADMIN1,DRIVERROUTE
 }
 
 open abstract class BaseView : AppCompatActivity(), AnkoLogger {
@@ -34,9 +35,10 @@ open abstract class BaseView : AppCompatActivity(), AnkoLogger {
         var intent = Intent(this, MainDriverView::class.java)
         when (view) {
             VIEW.LOCATION -> intent = Intent(this, EditLocationView::class.java)
-            VIEW.ADMIN -> intent = Intent(this,MainAdminView::class.java )
             VIEW.ROUTE -> intent = Intent(this,RouteMapView::class.java )
+            VIEW.DRIVERROUTE -> intent = Intent(this, DriverRouteView::class.java )
             VIEW.LIST -> intent = Intent(this, MainDriverView::class.java)
+            VIEW.DRIVERLIST -> intent = Intent(this, DriverListView::class.java)
             VIEW.LOGIN -> intent = Intent(this, LoginViewPassenger::class.java)
             VIEW.DRIVER -> intent = Intent(this, MainDriverView::class.java)
             VIEW.LIST1 -> intent = Intent(this, MainListView::class.java)

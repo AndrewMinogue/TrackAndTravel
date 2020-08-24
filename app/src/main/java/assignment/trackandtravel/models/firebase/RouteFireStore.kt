@@ -34,13 +34,12 @@ class RouteFireStore(val context: Context): RouteStore, AnkoLogger {
     }
 
     override fun create(route: RouteModel) {
-        userId = ""
         db = FirebaseDatabase.getInstance().reference
-        val key = db.child("users").child(userId).child("routes").push().key
+        val key = db.child("routes").push().key
         key?.let {
             route.fbId = key
             routes.add(route)
-            db.child("users").child(userId).child("routes").child(key).setValue(route)
+            db.child("routes").child(key).setValue(route)
         }
     }
 
@@ -55,7 +54,7 @@ class RouteFireStore(val context: Context): RouteStore, AnkoLogger {
             foundRoute.favourite = route.favourite
         }
 
-        db.child("users").child(userId).child("routes").child(route.fbId).setValue(route)
+        db.child("routes").child(route.fbId).setValue(route)
         if ((route.image.length) > 0 && (route.image[0] != 'h')) {
             updateImage(route)
         }
@@ -63,7 +62,7 @@ class RouteFireStore(val context: Context): RouteStore, AnkoLogger {
     }
 
     override fun delete(route: RouteModel) {
-        db.child("users").child(userId).child("routes").child(route.fbId).removeValue()
+        db.child("routes").child(route.fbId).removeValue()
         routes.remove(route)
     }
 
@@ -87,7 +86,7 @@ class RouteFireStore(val context: Context): RouteStore, AnkoLogger {
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         db = FirebaseDatabase.getInstance().reference
         routes.clear()
-        db.child("users").child(userId).child("routes").addListenerForSingleValueEvent(valueEventListener)
+        db.child("routes").addListenerForSingleValueEvent(valueEventListener)
     }
 
     override fun sortedByFavourite(): List<RouteModel>? {
@@ -113,7 +112,7 @@ class RouteFireStore(val context: Context): RouteStore, AnkoLogger {
                 }.addOnSuccessListener { taskSnapshot ->
                     taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
                         route.image = it.toString()
-                        db.child("users").child(userId).child("routes").child(route.fbId).setValue(route)
+                        db.child("routes").child(route.fbId).setValue(route)
                     }
                 }
             }

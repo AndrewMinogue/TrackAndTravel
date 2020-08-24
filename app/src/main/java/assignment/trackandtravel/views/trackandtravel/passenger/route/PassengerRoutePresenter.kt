@@ -1,4 +1,4 @@
-package assignment.trackandtravel.views.trackandtravel.routemapping
+package assignment.trackandtravel.views.trackandtravel.passenger.route
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -22,7 +22,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 
-class RouteMapPresenter(view: BaseView) : BasePresenter(view) {
+class PassengerRoutePresenter(view: BaseView) : BasePresenter(view) {
 
     var map: GoogleMap? = null
     var route = RouteModel()
