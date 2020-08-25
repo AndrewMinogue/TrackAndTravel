@@ -9,6 +9,7 @@ import assignment.trackandtravel.models.RouteModel
 import assignment.trackandtravel.views.trackandtravel.base.BaseView
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
+import kotlinx.android.synthetic.main.activity__driver_route.*
 import kotlinx.android.synthetic.main.activity_route.*
 import kotlinx.android.synthetic.main.activity_track_list.toolbarAdd
 import org.jetbrains.anko.AnkoLogger
@@ -24,20 +25,17 @@ class PassengerRouteView: BaseView(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity__driver_route)
-        super.init(toolbarAdd, true);
+        super.init(toolbarAdd1, true);
 
         presenter = initPresenter (PassengerRoutePresenter(this)) as PassengerRoutePresenter
 
-        chooseImage.setOnClickListener { presenter.doSelectImage() }
-        StopLocation.setOnClickListener { presenter.doSetLocation() }
-
-        mapView.getMapAsync {
+        mapView1.getMapAsync {
             presenter.doConfigureMap(it)
             it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync {
+        mapView1.onCreate(savedInstanceState)
+        mapView1.getMapAsync {
             map = it
             presenter.doConfigureMap(map)
         }
@@ -46,28 +44,28 @@ class PassengerRouteView: BaseView(), AnkoLogger {
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        mapView1.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        mapView1.onLowMemory()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        mapView1.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        mapView1.onResume()
         presenter.doResartLocationUpdates()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
+        mapView1.onSaveInstanceState(outState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -77,26 +75,22 @@ class PassengerRouteView: BaseView(), AnkoLogger {
     }
 
     override fun showRoute(route: RouteModel) {
-        BusNumber.setText(route.busnumber)
-        firststop.setText(route.busstopstart)
-        laststop.setText(route.busstopend)
+        BusNumber1.setText(route.busnumber)
+        firststop1.setText(route.busstopstart)
+        laststop1.setText(route.busstopend)
         route.favourite = false
 
 
-//        if(hillfort.favourite == true){
+//        if(route.favourite == true){
 //            favourite.setChecked(true)
-//            hillfort.favourite = true
-//        }else if(hillfort.favourite == false){
-//            hillfort.favourite = false
+//            route.favourite = true
+//        }else if(route.favourite == false){
+//            route.favourite = false
 //            favourite.setChecked(false)
 //        }
 
-        Glide.with(this).load(route.image).into(BusImage)
+        Glide.with(this).load(route.image).into(BusImage1)
 
-
-        if (route.image != null) {
-            chooseImage.setText(R.string.change_route_image)
-        }
         this.showLocation(route.location)
     }
 

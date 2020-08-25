@@ -32,10 +32,7 @@ class DriverRouteView: BaseView(), AnkoLogger {
         setContentView(R.layout.activity__driver_route)
         super.init(toolbarAdd1, true);
 
-
         presenter = initPresenter (DriverRoutePresenter(this)) as DriverRoutePresenter
-
-        StopLocation1.setOnClickListener { presenter.doSetLocation() }
 
         mapView1.getMapAsync {
             presenter.doConfigureMap(it)

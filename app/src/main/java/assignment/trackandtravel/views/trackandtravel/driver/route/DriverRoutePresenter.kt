@@ -40,6 +40,7 @@ class DriverRoutePresenter(view: BaseView) : BasePresenter(view) {
     init {
         handler.postDelayed(Runnable {
             handler.postDelayed(runnable!!, delay.toLong())
+            fireStore!!.fetchRoutes{}
         if (view.intent.hasExtra("route_edit")) {
             edit = true
             route = view.intent.extras?.getParcelable<RouteModel>("route_edit")!!

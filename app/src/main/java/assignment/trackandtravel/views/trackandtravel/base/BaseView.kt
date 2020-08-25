@@ -13,6 +13,9 @@ import assignment.trackandtravel.views.trackandtravel.driver.route.DriverRouteVi
 import assignment.trackandtravel.views.trackandtravel.editlocation.EditLocationView
 import assignment.trackandtravel.views.trackandtravel.trackandtravellist.MainDriverView
 import assignment.trackandtravel.views.trackandtravel.loginadmin.LoginViewPassenger
+import assignment.trackandtravel.views.trackandtravel.passenger.PassengerListView
+import assignment.trackandtravel.views.trackandtravel.passenger.PassengerListView1
+import assignment.trackandtravel.views.trackandtravel.passenger.route.PassengerRouteView
 import assignment.trackandtravel.views.trackandtravel.routemapping.RouteMapView
 import assignment.trackandtravel.views.trackandtravel.trackandtravellist.MainListView
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +27,7 @@ val LOCATION_REQUEST = 2
 
 
 enum class VIEW {
-    ROUTE, MAPS, LIST, LOGIN, DRIVERLIST, DRIVER,LOCATION,LIST1,ADMIN1,DRIVERROUTE
+    ROUTE, MAPS, LIST, LOGIN, DRIVERLIST, DRIVER,LOCATION,LIST1,ADMIN1,DRIVERROUTE,PASSENGERROUTE
 }
 
 open abstract class BaseView : AppCompatActivity(), AnkoLogger {
@@ -37,12 +40,13 @@ open abstract class BaseView : AppCompatActivity(), AnkoLogger {
             VIEW.LOCATION -> intent = Intent(this, EditLocationView::class.java)
             VIEW.ROUTE -> intent = Intent(this,RouteMapView::class.java )
             VIEW.DRIVERROUTE -> intent = Intent(this, DriverRouteView::class.java )
-            VIEW.LIST -> intent = Intent(this, MainDriverView::class.java)
+            VIEW.LIST -> intent = Intent(this, PassengerListView1::class.java)
             VIEW.DRIVERLIST -> intent = Intent(this, DriverListView::class.java)
             VIEW.LOGIN -> intent = Intent(this, LoginViewPassenger::class.java)
             VIEW.DRIVER -> intent = Intent(this, MainDriverView::class.java)
             VIEW.LIST1 -> intent = Intent(this, MainListView::class.java)
             VIEW.ADMIN1 -> intent = Intent(this, AdminHomeView::class.java )
+            VIEW.PASSENGERROUTE -> intent = Intent(this, PassengerRouteView::class.java )
 
         }
         if (key != "") {

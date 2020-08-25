@@ -2,12 +2,14 @@ package assignment.trackandtravel.views.trackandtravel.passenger.route
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Handler
 import assignment.trackandtravel.helpers.checkLocationPermissions
 import assignment.trackandtravel.helpers.createDefaultLocationRequest
 import assignment.trackandtravel.helpers.isPermissionGranted
 import assignment.trackandtravel.helpers.showImagePicker
 import assignment.trackandtravel.models.Location
 import assignment.trackandtravel.models.RouteModel
+import assignment.trackandtravel.models.firebase.RouteFireStore
 import assignment.trackandtravel.views.trackandtravel.base.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -30,33 +32,31 @@ class PassengerRoutePresenter(view: BaseView) : BasePresenter(view) {
     var edit = false;
     var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
     val locationRequest = createDefaultLocationRequest()
+    var fireStore: RouteFireStore? = null
+    var handler: Handler = Handler()
+    var runnable: Runnable? = null
+    var delay = 5000
 
     init {
+        if (app.routes is RouteFireStore) {
+            fireStore = app.routes as RouteFireStore
+        }
+    }
+
+    init {
+        handler.postDelayed(Runnable {
+            handler.postDelayed(runnable!!, delay.toLong())
+            fireStore!!.fetchRoutes{
         if (view.intent.hasExtra("route_edit")) {
             edit = true
             route = view.intent.extras?.getParcelable<RouteModel>("route_edit")!!
             view.showRoute(route)
-        } else {
-            if (checkLocationPermissions(view)) {
-                doSetCurrentLocation()
+        }
             }
-        }
+        }.also { runnable = it }, delay.toLong())
     }
 
-    @SuppressLint("MissingPermission")
-    fun doSetCurrentLocation() {
-        locationService.lastLocation.addOnSuccessListener {
-            locationUpdate(Location(it.latitude, it.longitude))
-        }
-    }
 
-    override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (isPermissionGranted(requestCode, grantResults)) {
-            doSetCurrentLocation()
-        } else {
-            locationUpdate(defaultLocation)
-        }
-    }
 
     fun doConfigureMap(m: GoogleMap) {
         map = m
@@ -148,11 +148,6 @@ class PassengerRoutePresenter(view: BaseView) : BasePresenter(view) {
             IMAGE_REQUEST -> {
                 route.image = data.data.toString()
                 view?.showRoute(route)
-            }
-            LOCATION_REQUEST -> {
-                val location = data.extras?.getParcelable<Location>("location")!!
-                route.location = location
-                locationUpdate(location)
             }
         }
     }
