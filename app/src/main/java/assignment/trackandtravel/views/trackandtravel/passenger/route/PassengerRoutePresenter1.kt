@@ -1,7 +1,8 @@
-package assignment.trackandtravel.views.trackandtravel.driver.route
+package assignment.trackandtravel.views.trackandtravel.passenger.route
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.CountDownTimer
 import android.os.Handler
 import assignment.trackandtravel.R
 import assignment.trackandtravel.helpers.checkLocationPermissions
@@ -27,7 +28,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 
-class DriverRoutePresenter(view: BaseView) : BasePresenter(view) {
+class PassengerRoutePresenter1(view: BaseView) : BasePresenter(view) {
 
     var map: GoogleMap? = null
     var route = RouteModel()
@@ -39,29 +40,35 @@ class DriverRoutePresenter(view: BaseView) : BasePresenter(view) {
     var handler: Handler = Handler()
     var runnable: Runnable? = null
     var delay = 5000
-
-    init {
-        handler.postDelayed(Runnable {
-            handler.postDelayed(runnable!!, delay.toLong())
-            fireStore!!.fetchRoutes {
-                if (view.intent.hasExtra("route_edit")) {
-                    edit = true
-                    route = view.intent.extras?.getParcelable<RouteModel>("route_edit")!!
-                    view.showRoute(route)
-                } else {
-                    if (checkLocationPermissions(view)) {
-                        doSetCurrentLocation()
-                    }
-                }
-            }
-        }.also { runnable = it }, delay.toLong())
-    }
+    private var currentRoutes: List<RouteModel> = arrayListOf()
 
     init {
         if (app.routes is RouteFireStore) {
             fireStore = app.routes as RouteFireStore
         }
     }
+
+    init {
+        if (view.intent.hasExtra("route_edit")) {
+            edit = true
+            route = view.intent.extras?.getParcelable<RouteModel>("route_edit")!!
+            val timer = object: CountDownTimer(5000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+
+                }
+                override fun onFinish() {
+                    fireStore!!.fetchRoutes {
+                        view.showRoute(route)
+                        locationUpdate(route.location)
+                        start()
+                    }
+                }
+            }
+            timer.start()
+        }
+    }
+
+
 
 
     fun refresh()
@@ -72,20 +79,37 @@ class DriverRoutePresenter(view: BaseView) : BasePresenter(view) {
             }.also { runnable = it }, delay.toLong())
         }
     }
-    @SuppressLint("MissingPermission")
-    fun doSetCurrentLocation() {
-        locationService.lastLocation.addOnSuccessListener {
-            locationUpdate(Location(it.latitude, it.longitude))
+
+    fun loadRoutes() {
+        handler.postDelayed(Runnable {
+            handler.postDelayed(runnable!!, delay.toLong())
+        fireStore!!.fetchRoutes {
+            doAsync {
+                val routes = app.routes.findALL()
+                uiThread {
+                    currentRoutes = routes
+                }
+            }
         }
+        }.also { runnable = it }, delay.toLong())
     }
 
-    override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (isPermissionGranted(requestCode, grantResults)) {
-            doSetCurrentLocation()
-        } else {
-            locationUpdate(defaultLocation)
-        }
+    @SuppressLint("MissingPermission")
+    fun doResartLocationUpdates() {
+                var locationCallback = object : LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult?) {
+                        if (locationResult != null && locationResult.locations != null) {
+                            val l = locationResult.locations.last()
+                            locationUpdate(Location(l.latitude, l.longitude))
+                        }
+                    }
+                }
+                if (!edit) {
+                    locationService.requestLocationUpdates(locationRequest, locationCallback, null)
+                }
     }
+
+
 
     fun doConfigureMap(m: GoogleMap) {
         map = m
@@ -94,7 +118,7 @@ class DriverRoutePresenter(view: BaseView) : BasePresenter(view) {
 
     fun locationUpdate(location : Location) {
         route.location = location
-        route.location.zoom = 11f
+        route.location.zoom = 15f
         map?.clear()
         map?.uiSettings?.setZoomControlsEnabled(true)
         val options = MarkerOptions().position(LatLng(route.location.lat, route.location.lng))
@@ -156,20 +180,15 @@ class DriverRoutePresenter(view: BaseView) : BasePresenter(view) {
     }
 
 
-    @SuppressLint("MissingPermission")
-    fun doResartLocationUpdates() {
-        var locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
-                if (locationResult != null && locationResult.locations != null) {
-                    val l = locationResult.locations.last()
-                    locationUpdate(Location(l.latitude, l.longitude))
-                }
-            }
-        }
-        if (!edit) {
-            locationService.requestLocationUpdates(locationRequest, locationCallback, null)
-        }
-    }
+//    @SuppressLint("MissingPermission")
+//    fun doResartLocationUpdates() {
+//        handler.postDelayed(Runnable {
+//            handler.postDelayed(runnable!!, delay.toLong())
+//            fireStore!!.fetchRoutes{
+//        locationUpdate(route.location)
+//        }
+//    }.also { runnable = it }, delay.toLong())
+//    }
 
     fun doAddOrSave(busnumber: String, busstopstart: String, busstopend : String, favourite: Boolean) {
         route.busnumber = busnumber
@@ -184,6 +203,9 @@ class DriverRoutePresenter(view: BaseView) : BasePresenter(view) {
             } else {
                 app.routes.create(route)
             }
+            uiThread {
+                view?.finish()
+            }
         }
     }
 
@@ -192,33 +214,8 @@ class DriverRoutePresenter(view: BaseView) : BasePresenter(view) {
     }
 
 
-    fun doDelete() {
-        doAsync {
-            app.routes.delete(route)
-            uiThread {
-                view?.finish()
-            }
-        }
-    }
-
-    fun doSelectImage() {
-        view?.let {
-            showImagePicker(view!!, IMAGE_REQUEST)
-        }
-    }
-
     fun doSetLocation() {
         view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(route.location.lat, route.location.lng, route.location.zoom))
-    }
-
-
-    fun doRouteMap() {
-        view?.navigateTo(VIEW.ROUTE)
-    }
-
-    fun doLogout() {
-        FirebaseAuth.getInstance().signOut()
-        view?.navigateTo(VIEW.LOGIN)
     }
 
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {

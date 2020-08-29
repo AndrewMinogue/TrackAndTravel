@@ -16,6 +16,14 @@ class AdminHomePresenter(view: BaseView) : BasePresenter(view) {
         view?.navigateTo(VIEW.LIST1)
     }
 
+    fun doSignupDriver() {
+        view?.navigateTo(VIEW.DRIVERSIGNUP)
+    }
+
+    fun doSignupAdmin() {
+        view?.navigateTo(VIEW.ADMINSIGNUP)
+    }
+
     fun doLogout() {
         FirebaseAuth.getInstance().signOut()
         view?.navigateTo(VIEW.LOGIN)

@@ -1,4 +1,4 @@
-package assignment.trackandtravel.views.trackandtravel.loginadmin
+package assignment.trackandtravel.views.trackandtravel.admin.signupDriver.signupAdmin
 
 import android.os.Bundle
 import android.view.View
@@ -8,35 +8,31 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 
 
-class LoginView : BaseView() {
+class LoginAdminView : BaseView() {
 
-    lateinit var presenter: LoginPresenter
+    lateinit var presenter: LoginAdminPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login1)
+        setContentView(R.layout.activity_signup)
         init(toolbar, false)
         progressBar.visibility = View.GONE
 
-        presenter = initPresenter(LoginPresenter(this)) as LoginPresenter
+        presenter = initPresenter(LoginAdminPresenter(this)) as LoginAdminPresenter
 
         presenter.getAdmins()
 
-        logIn.setOnClickListener {
+        signUp.setOnClickListener {
             val email = email.text.toString()
             val password = password.text.toString()
-            val user1 = presenter.findAdmin(email)
-
+            val admin1 = true
             if (email == "" || password == "") {
                 toast("Please provide email + password")
-            } else if(user1.equals(null) || user1.admin == false){
-                toast("This is not a registered bus driver email")
-            }else{
-                presenter.doLogin(email, password)
+            } else {
+                presenter.doAddOrSave(email,admin1)
+                presenter.doSignUp(email, password)
             }
         }
-
-
     }
 
 

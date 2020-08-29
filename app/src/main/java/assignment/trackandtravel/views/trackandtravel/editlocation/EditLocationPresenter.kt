@@ -26,6 +26,7 @@ class EditLocationPresenter(view: BaseView) : BasePresenter(view) {
             .snippet("GPS : " + loc.toString())
             .draggable(true)
             .position(loc)
+        map?.uiSettings?.setZoomControlsEnabled(true)
         map.addMarker(options)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
     }

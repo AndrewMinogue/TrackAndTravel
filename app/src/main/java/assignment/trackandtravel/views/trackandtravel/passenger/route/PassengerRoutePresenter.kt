@@ -3,6 +3,7 @@ package assignment.trackandtravel.views.trackandtravel.passenger.route
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Handler
+import assignment.trackandtravel.R
 import assignment.trackandtravel.helpers.checkLocationPermissions
 import assignment.trackandtravel.helpers.createDefaultLocationRequest
 import assignment.trackandtravel.helpers.isPermissionGranted
@@ -17,6 +18,8 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -28,7 +31,7 @@ class PassengerRoutePresenter(view: BaseView) : BasePresenter(view) {
 
     var map: GoogleMap? = null
     var route = RouteModel()
-    var defaultLocation = Location(52.245696, -7.139102, 15f)
+    var defaultLocation = Location(52.245696, -7.139102, 11f)
     var edit = false;
     var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
     val locationRequest = createDefaultLocationRequest()
@@ -63,15 +66,38 @@ class PassengerRoutePresenter(view: BaseView) : BasePresenter(view) {
         locationUpdate(route.location)
     }
 
+    @SuppressLint("MissingPermission")
+    fun doSetCurrentLocation() {
+        locationService.lastLocation.addOnSuccessListener {
+            locationUpdate(Location(it.latitude, it.longitude))
+        }
+    }
+
     fun locationUpdate(location : Location) {
         route.location = location
-        route.location.zoom = 15f
+        route.location.zoom = 11f
         map?.clear()
         map?.uiSettings?.setZoomControlsEnabled(true)
+
         val options = MarkerOptions().position(LatLng(route.location.lat, route.location.lng))
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.abus))
         map?.addMarker(options)
+
         map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(route.location.lat, route.location.lng), route.location.zoom))
+//
+//        val options1 = MarkerOptions().position(LatLng(route.stop1.lat, route.stop1.lng))
+//        map?.addMarker(options1)
+//
+//        val options2 = MarkerOptions().position(LatLng(route.stop2.lat, route.stop2.lng))
+//        map?.addMarker(options2)
+//
+//        val options3 = MarkerOptions().position(LatLng(route.stop3.lat, route.stop3.lng))
+//        map?.addMarker(options3)
+
         view?.showLocation(route.location)
+//        view?.showLocation(route.stop1)
+//        view?.showLocation(route.stop2)
+//        view?.showLocation(route.stop3)
     }
 
 
@@ -113,7 +139,6 @@ class PassengerRoutePresenter(view: BaseView) : BasePresenter(view) {
         view?.finish()
     }
 
-
     fun doDelete() {
         doAsync {
             app.routes.delete(route)
@@ -123,19 +148,8 @@ class PassengerRoutePresenter(view: BaseView) : BasePresenter(view) {
         }
     }
 
-    fun doSelectImage() {
-        view?.let {
-            showImagePicker(view!!, IMAGE_REQUEST)
-        }
-    }
-
     fun doSetLocation() {
         view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(route.location.lat, route.location.lng, route.location.zoom))
-    }
-
-
-    fun doRouteMap() {
-        view?.navigateTo(VIEW.ROUTE)
     }
 
     fun doLogout() {

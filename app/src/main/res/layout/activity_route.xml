@@ -48,21 +48,190 @@
 
                 <Button
                     android:id="@+id/StopLocation"
-                    android:layout_width="379dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="23dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/colorAccent"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/button_location"
+                    android:text="1"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.047"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mapView" />
+                    app:layout_constraintTop_toBottomOf="@+id/information" />
+
+                <Button
+                    android:id="@+id/StopLocation2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="2"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.002"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/StopLocation" />
+
+                <Button
+                    android:id="@+id/StopLocation3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="3"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.002"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/StopLocation2" />
+
+                <Button
+                    android:id="@+id/StopLocation4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="4"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.284"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/information" />
+
+                <Button
+                    android:id="@+id/StopLocation5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="5"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/StopLocation4" />
+
+                <Button
+                    android:id="@+id/StopLocation6"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="6"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/StopLocation5" />
+
+                <Button
+                    android:id="@+id/StopLocation7"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="7"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.521"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/information" />
+
+                <Button
+                    android:id="@+id/StopLocation8"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="8"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/StopLocation7" />
+
+                <Button
+                    android:id="@+id/StopLocation9"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="9"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/StopLocation8" />
+
+                <Button
+                    android:id="@+id/StopLocation10"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="10"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.743"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/information" />
 
                 <EditText
                     android:id="@+id/firststop"
@@ -117,7 +286,6 @@
                     <requestFocus />
                 </EditText>
 
-
                 <ImageView
                     android:id="@+id/BusImage"
                     android:layout_width="393dp"
@@ -160,10 +328,26 @@
                     android:layout_marginBottom="87dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.523"
+                    app:layout_constraintHorizontal_bias="0.52"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chooseImage"
                     app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/information"
+                    android:layout_width="174dp"
+                    android:layout_height="62dp"
+                    android:layout_marginStart="92dp"
+                    android:layout_marginTop="4dp"
+                    android:inputType="none"
+                    android:maxLength="100"
+                    android:maxLines="2"
+                    android:padding="8dp"
+                    android:text="Please Select the stop you want to change:"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/mapView"
+                    app:layout_constraintTop_toBottomOf="@+id/mapView" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,30 +1,35 @@
-package assignment.trackandtravel.views.trackandtravel.driver.route
+package assignment.trackandtravel.views.trackandtravel.passenger.route
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import assignment.trackandtravel.R
+import assignment.trackandtravel.main.MainApp
 import assignment.trackandtravel.models.RouteModel
 import assignment.trackandtravel.models.firebase.RouteFireStore
 import assignment.trackandtravel.views.trackandtravel.base.BaseView
+import assignment.trackandtravel.views.trackandtravel.base.VIEW
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity__driver_route.*
+import kotlinx.android.synthetic.main.activity_route.*
+import kotlinx.android.synthetic.main.activity_track_list.toolbarAdd
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 
 
+class PassengerRouteView1: BaseView(), AnkoLogger {
 
-class DriverRouteView: BaseView(), AnkoLogger {
-
-    lateinit var presenter: DriverRoutePresenter
+    lateinit var presenter: PassengerRoutePresenter1
     var route = RouteModel()
     lateinit var map: GoogleMap
+    var fireStore: RouteFireStore? = null
     var handler: Handler = Handler()
     var runnable: Runnable? = null
-    var delay = 4000
+    var delay = 5000
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,11 +37,15 @@ class DriverRouteView: BaseView(), AnkoLogger {
         setContentView(R.layout.activity__driver_route)
         super.init(toolbarAdd1, true);
 
-        presenter = initPresenter (DriverRoutePresenter(this)) as DriverRoutePresenter
+        presenter = initPresenter (PassengerRoutePresenter1(this)) as PassengerRoutePresenter1
+
+
+
+        presenter.refresh()
+
 
         mapView1.getMapAsync {
             presenter.doConfigureMap(it)
-            it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
         mapView1.onCreate(savedInstanceState)
@@ -45,16 +54,7 @@ class DriverRouteView: BaseView(), AnkoLogger {
             presenter.doConfigureMap(map)
         }
 
-        presenter.refresh()
-
-        handler.postDelayed(Runnable {
-            handler.postDelayed(runnable!!, delay.toLong())
-        if (BusNumber1.text.toString().isEmpty()) {
-            toast(R.string.enter_route_title)
-        } else {
-            presenter.doAddOrSave(BusNumber1.text.toString(), firststop1.text.toString(), laststop1.text.toString(),findFavouriteChecked())
-        }
-        }.also { runnable = it }, delay.toLong())
+        presenter.loadRoutes()
 
     }
 
@@ -85,26 +85,12 @@ class DriverRouteView: BaseView(), AnkoLogger {
         mapView1.onSaveInstanceState(outState)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_driver, menu)
-        if (presenter.edit) menu.getItem(0).setVisible(true)
-        return super.onCreateOptionsMenu(menu)
-    }
 
     override fun showRoute(route: RouteModel) {
         BusNumber1.setText(route.busnumber)
         firststop1.setText(route.busstopstart)
         laststop1.setText(route.busstopend)
         route.favourite = false
-
-
-//        if(route.favourite == true){
-//            favourite.setChecked(true)
-//            route.favourite = true
-//        }else if(route.favourite == false){
-//            route.favourite = false
-//            favourite.setChecked(false)
-//        }
 
         Glide.with(this).load(route.image).into(BusImage1)
 
@@ -121,27 +107,18 @@ class DriverRouteView: BaseView(), AnkoLogger {
         this.showLocation(route.stop10)
     }
 
-    fun findFavouriteChecked(): Boolean{
-        var favourite1 = false
 
-//        if(favourite.isChecked){
-//            favourite1 = true
-//        }
-//        if(favourite.isChecked == false){
-//            favourite1 = false
-//        }
-        return favourite1
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        if (presenter.edit) menu.getItem(0).setVisible(true)
+        return super.onCreateOptionsMenu(menu)
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.item_add1 -> {
-                if (BusNumber1.text.toString().isEmpty()) {
-                    toast(R.string.enter_route_title)
-                } else {
-                    presenter.doAddOrSave(BusNumber1.text.toString(), firststop1.text.toString(), laststop1.text.toString(),findFavouriteChecked())
-                }
+            R.id.item_cancel -> {
+                presenter.doCancel()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -153,5 +130,4 @@ class DriverRouteView: BaseView(), AnkoLogger {
             presenter.doActivityResult(requestCode, resultCode, data)
         }
     }
-
 }

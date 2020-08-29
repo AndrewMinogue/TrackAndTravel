@@ -40,4 +40,6 @@
 
     <string name="change_route_image">Change route image</string>
     <string name="enter_route_title">Please enter a bus number</string>
+
+    <string name="info">For more information contact us at TrackAndTravel@gmail.com</string>
 </resources>

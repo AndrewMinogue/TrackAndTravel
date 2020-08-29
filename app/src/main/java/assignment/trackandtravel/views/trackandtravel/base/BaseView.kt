@@ -11,11 +11,14 @@ import assignment.trackandtravel.views.trackandtravel.adminhomepage.AdminHomeVie
 import assignment.trackandtravel.views.trackandtravel.driver.DriverListView
 import assignment.trackandtravel.views.trackandtravel.driver.route.DriverRouteView
 import assignment.trackandtravel.views.trackandtravel.editlocation.EditLocationView
+import assignment.trackandtravel.views.trackandtravel.admin.signupDriver.LoginViewDriver
+import assignment.trackandtravel.views.trackandtravel.admin.signupDriver.signupAdmin.LoginAdminView
 import assignment.trackandtravel.views.trackandtravel.trackandtravellist.MainDriverView
 import assignment.trackandtravel.views.trackandtravel.loginadmin.LoginViewPassenger
 import assignment.trackandtravel.views.trackandtravel.passenger.PassengerListView
 import assignment.trackandtravel.views.trackandtravel.passenger.PassengerListView1
 import assignment.trackandtravel.views.trackandtravel.passenger.route.PassengerRouteView
+import assignment.trackandtravel.views.trackandtravel.passenger.route.PassengerRouteView1
 import assignment.trackandtravel.views.trackandtravel.routemapping.RouteMapView
 import assignment.trackandtravel.views.trackandtravel.trackandtravellist.MainListView
 import com.google.firebase.auth.FirebaseAuth
@@ -24,10 +27,19 @@ import org.jetbrains.anko.AnkoLogger
 
 val IMAGE_REQUEST = 1
 val LOCATION_REQUEST = 2
+val LOCATION_REQUEST2 = 3
+val LOCATION_REQUEST3 = 4
+val LOCATION_REQUEST4 = 5
+val LOCATION_REQUEST5 = 6
+val LOCATION_REQUEST6 = 7
+val LOCATION_REQUEST7 = 8
+val LOCATION_REQUEST8 = 9
+val LOCATION_REQUEST9 = 10
+val LOCATION_REQUEST10 = 11
 
 
 enum class VIEW {
-    ROUTE, MAPS, LIST, LOGIN, DRIVERLIST, DRIVER,LOCATION,LIST1,ADMIN1,DRIVERROUTE,PASSENGERROUTE
+    ROUTE, MAPS, LIST, LOGIN, DRIVERLIST, DRIVER,LOCATION,LIST1,ADMIN1,DRIVERROUTE,PASSENGERROUTE,DRIVERSIGNUP,ADMINSIGNUP
 }
 
 open abstract class BaseView : AppCompatActivity(), AnkoLogger {
@@ -46,7 +58,9 @@ open abstract class BaseView : AppCompatActivity(), AnkoLogger {
             VIEW.DRIVER -> intent = Intent(this, MainDriverView::class.java)
             VIEW.LIST1 -> intent = Intent(this, MainListView::class.java)
             VIEW.ADMIN1 -> intent = Intent(this, AdminHomeView::class.java )
-            VIEW.PASSENGERROUTE -> intent = Intent(this, PassengerRouteView::class.java )
+            VIEW.PASSENGERROUTE -> intent = Intent(this, PassengerRouteView1::class.java )
+            VIEW.DRIVERSIGNUP -> intent = Intent(this, LoginViewDriver::class.java)
+            VIEW.ADMINSIGNUP -> intent = Intent(this, LoginAdminView::class.java)
 
         }
         if (key != "") {
@@ -76,6 +90,8 @@ open abstract class BaseView : AppCompatActivity(), AnkoLogger {
         super.onDestroy()
     }
 
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
@@ -91,5 +107,6 @@ open abstract class BaseView : AppCompatActivity(), AnkoLogger {
     open fun showProgress() {}
     open fun hideProgress() {}
     open fun showLocation(location : Location) {}
+    open fun showLocation1(location : Location) {}
     open fun showRoutes(route: List<RouteModel>) {}
 }

@@ -9,6 +9,7 @@ import assignment.trackandtravel.R
 import assignment.trackandtravel.views.trackandtravel.base.BaseView
 import com.google.android.gms.maps.model.Marker
 import kotlinx.android.synthetic.main.activity_map.*
+import kotlinx.android.synthetic.main.activity_path_google_map.*
 
 
 class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {

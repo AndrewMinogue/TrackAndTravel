@@ -1,4 +1,4 @@
-package assignment.trackandtravel.views.trackandtravel.loginadmin
+package assignment.trackandtravel.views.trackandtravel.admin.signupDriver.signupAdmin
 
 import assignment.trackandtravel.models.AdminModel
 import assignment.trackandtravel.models.UserModel
@@ -12,7 +12,7 @@ import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 
 
-class LoginPresenter(view: BaseView) : BasePresenter(view) {
+class LoginAdminPresenter(view: BaseView) : BasePresenter(view) {
 
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
     var fireStore: RouteFireStore? = null
@@ -41,26 +41,6 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
         }
     }
 
-    fun doLogin(email: String, password: String) {
-        view?.showProgress()
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->
-            if (task.isSuccessful) {
-                if (fireStore != null) {
-                    fireStore!!.fetchRoutes {
-                        view?.hideProgress()
-                        view?.navigateTo(VIEW.ADMIN1)
-                    }
-                } else {
-                    view?.hideProgress()
-                    view?.navigateTo(VIEW.ADMIN1)
-                }
-
-                view?.hideProgress()
-                view?.navigateTo(VIEW.ADMIN1)
-            }
-        }
-    }
-
     fun doSignUp(email: String, password: String) {
         view?.showProgress()
         auth.createUserWithEmailAndPassword(email, password)
@@ -77,18 +57,6 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
                     view?.toast("Sign Up Failed: ${task.exception?.message}")
                 }
             }
-    }
-
-    fun findAdmin(email: String) :AdminModel{
-        val foundAdmins = ArrayList<AdminModel>()
-        getAdmins()
-        admins.forEach {
-            if (it.emailAdmin.contains(email, ignoreCase = true)) {
-                foundAdmins.add(it)
-            }
-        }
-        view?.info(foundAdmins)
-        return foundAdmins[0]
     }
 
 

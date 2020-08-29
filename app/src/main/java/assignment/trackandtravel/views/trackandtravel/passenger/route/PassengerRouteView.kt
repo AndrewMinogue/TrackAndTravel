@@ -31,7 +31,6 @@ class PassengerRouteView: BaseView(), AnkoLogger {
 
         mapView1.getMapAsync {
             presenter.doConfigureMap(it)
-            it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
         mapView1.onCreate(savedInstanceState)

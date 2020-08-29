@@ -33,6 +33,15 @@ class AdminHomeView: BaseView(){
         ViewRoutes.setOnClickListener{
             presenter.doShowRoutes()
         }
+
+        CreateAdmin.setOnClickListener{
+            presenter.doSignupAdmin()
+
+        }
+
+        CreateDriver.setOnClickListener{
+            presenter.doSignupDriver()
+        }
     }
 
 

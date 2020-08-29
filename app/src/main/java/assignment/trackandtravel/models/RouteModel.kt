@@ -17,7 +17,17 @@ data class RouteModel(@PrimaryKey(autoGenerate = true)
                       var busstopend : String = "",
                       var image: String = "",
                       var favourite: Boolean = false,
-                      @Embedded var location : Location = Location()): Parcelable
+                      @Embedded var location : Location = Location(),
+                      @Embedded var stop1 : Location = Location(),
+                      @Embedded var stop2 : Location = Location(),
+                      @Embedded var stop3 : Location = Location(),
+                      @Embedded var stop4 : Location = Location(),
+                      @Embedded var stop5 : Location = Location(),
+                      @Embedded var stop6 : Location = Location(),
+                      @Embedded var stop7 : Location = Location(),
+                      @Embedded var stop8 : Location = Location(),
+                      @Embedded var stop9 : Location = Location(),
+                      @Embedded var stop10 : Location = Location()): Parcelable
 
 
 @Parcelize

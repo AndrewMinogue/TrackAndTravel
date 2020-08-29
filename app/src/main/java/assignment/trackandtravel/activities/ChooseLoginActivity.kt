@@ -22,15 +22,15 @@ class ChooseLoginActivity : Activity() {
         app = application as MainApp
 
 
-        Admin.setOnClickListener{
+        Admin1.setOnClickListener{
             startActivityForResult<LoginView>(0)
         }
 
-        Driver.setOnClickListener{
+        BusDriver.setOnClickListener{
             startActivityForResult<LoginViewDriver>(0)
         }
 
-        Passenger.setOnClickListener{
+        passenger.setOnClickListener{
             startActivityForResult<LoginViewPassenger>(0)
         }
 

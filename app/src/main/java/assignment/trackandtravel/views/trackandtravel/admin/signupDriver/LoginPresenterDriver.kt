@@ -1,4 +1,4 @@
-package assignment.trackandtravel.views.trackandtravel.loginadmin
+package assignment.trackandtravel.views.trackandtravel.admin.signupDriver
 
 import assignment.trackandtravel.models.UserModel
 import assignment.trackandtravel.models.firebase.RouteFireStore
@@ -45,26 +45,6 @@ class LoginPresenterDriver(view: BaseView) : BasePresenter(view) {
     }
 
 
-
-    fun doLogin(email: String, password: String) {
-        view?.showProgress()
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->
-            if (task.isSuccessful) {
-                if (fireStore != null) {
-                    fireStore!!.fetchRoutes {
-                        view?.hideProgress()
-                        view?.navigateTo(VIEW.DRIVERLIST)
-                    }
-                } else {
-                    view?.hideProgress()
-                    view?.navigateTo(VIEW.DRIVERLIST)
-                }
-                view?.hideProgress()
-                view?.navigateTo(VIEW.DRIVERLIST)
-            }
-        }
-    }
-
     fun doSignUp(email: String, password: String) {
         view?.showProgress()
         auth.createUserWithEmailAndPassword(email, password)
@@ -73,7 +53,7 @@ class LoginPresenterDriver(view: BaseView) : BasePresenter(view) {
                     if (fireStore != null) {
                         fireStore!!.fetchRoutes {
                             view?.hideProgress()
-                            view?.navigateTo(VIEW.DRIVERLIST)
+                            view?.navigateTo(VIEW.ADMIN1)
                         }
                     } else {
                         view?.hideProgress()
@@ -82,41 +62,6 @@ class LoginPresenterDriver(view: BaseView) : BasePresenter(view) {
                 }
             }
     }
-
-//        fun findUser(email:String) : UserModel?{
-//            var user1 = app.users.findByEmail(email)
-//
-//            return user1
-//        }
-
-//    fun findUser1(email: String): UserModel{
-//        val foundUsers = app.users.findByEmail(email)
-//        view?.info(foundUsers)
-//        if (foundUsers != null) {
-//            currentUsers = foundUsers
-//        }
-//        users.forEach{
-//            if(it.busdriver == true){
-//                user = it
-//            }
-//        }
-//        return user
-//    }
-
-
-
-    fun findUser(email: String) :UserModel{
-        val foundUsers = ArrayList<UserModel>()
-            getUsers()
-            users.forEach {
-                if (it.emailBus.contains(email, ignoreCase = true)) {
-                    foundUsers.add(it)
-                }
-            }
-            view?.info(foundUsers)
-        return foundUsers[0]
-    }
-
 
         fun doAddOrSave(email: String, busdriver: Boolean) {
             user.emailBus = email
